@@ -13,7 +13,7 @@ using SportStore.Models;
 
 namespace SportStore
 {
-    public class Startup
+    public class Startup 
     {
 
         public Startup(IConfiguration configuration)
@@ -30,6 +30,10 @@ namespace SportStore
             services.AddSession();
             services.AddMemoryCache();
             services.AddMvc();
+            services.AddSwaggerGen(
+                c => c.SwaggerDoc("v1",
+                new Swashbuckle.AspNetCore.Swagger.Info { Title = "My API", Version = "v1" }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +46,8 @@ namespace SportStore
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-           
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             app.UseMvc(routes =>
            {
                routes.MapRoute(
@@ -81,7 +86,11 @@ namespace SportStore
                });
                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
            });
+
+
             SeedData.EnsurePopulated(app);
         }
+
+    
     }
 }
