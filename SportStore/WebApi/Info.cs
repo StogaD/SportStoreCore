@@ -29,7 +29,6 @@ namespace SportStore.WebApi
                 return BadRequest();
         }
 
-
         [HttpGet]
         [Route("{prodId}")]
         //[ProducesResponseType(200,Type = typeof(string))]
@@ -38,9 +37,25 @@ namespace SportStore.WebApi
             var prod = productRepository.Products.Where(p => p.ProductID == prodId).SingleOrDefault();
 
             return Ok(prod);
-            //return new NotFoundResult();
-           
-
+          
         }
+
+
+        
+        //[Route("{prodId}")]
+        ////[ProducesResponseType(200,Type = typeof(string))]
+        //public ViewResult GetMe(int prodId)
+        //{
+        //    var prod = productRepository.Products.Where(p => p.ProductID == prodId).SingleOrDefault();
+
+        //    new ViewResult
+        //    {
+        //        StatusCode = 200,
+        //        ViewName = "daw"
+        //    };
+        //    return View();
+            
+
+        //}
     }
 }
